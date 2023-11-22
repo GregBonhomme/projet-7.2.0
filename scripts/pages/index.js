@@ -87,7 +87,7 @@ const ingredients_filter = document.querySelector("#ingredients_searchbar input"
 ingredients_filter.addEventListener("input", () => {
     let filter = ingredients_filter.value;
     document.getElementById("ingredients_filters").innerHTML = "";
-    document.getElementById("ingredients_filters").appendChild(printList(applyKeywords(filter, getList("ingredients", recipes))));
+    document.getElementById("ingredients_filters").appendChild(printList(applyKeywords(filter, getList("ingredients", applyKeywords(allRecipes, keywords)))));
     filterTrigger();
 });
 
@@ -95,7 +95,7 @@ const appliances_filter = document.querySelector("#appliances_searchbar input");
 appliances_filter.addEventListener("input", () => {
     let filter = appliances_filter.value;
     document.getElementById("appliances_filters").innerHTML = "";
-    document.getElementById("appliances_filters").appendChild(printList(applyKeywords(filter, getList("appliances", recipes))));
+    document.getElementById("appliances_filters").appendChild(printList(applyKeywords(filter, getList("appliances", applyKeywords(allRecipes, keywords)))));
     filterTrigger();
 });
 
@@ -103,7 +103,7 @@ const ustensils_filter = document.querySelector("#ustensils_searchbar input");
 ustensils_filter.addEventListener("input", () => {
     let filter = ustensils_filter.value;
     document.getElementById("ustensils_filters").innerHTML = "";
-    document.getElementById("ustensils_filters").appendChild(printList(applyKeywords(filter, getList("ustensils", recipes))));
+    document.getElementById("ustensils_filters").appendChild(printList(applyKeywords(filter, getList("ustensils", applyKeywords(allRecipes, keywords)))));
     filterTrigger();
 });
 
@@ -121,7 +121,7 @@ searchbar.addEventListener("input", () => {
     let searchWords = search.split(" ");
     searchbarKeywords = [];
     for (let i = 0; i < searchWords.length; i++) {
-        if (searchWords[i].length > 3) {
+        if (searchWords[i].length >= 3) {
             searchbarKeywords.push(searchWords[i]);
         }
     }
