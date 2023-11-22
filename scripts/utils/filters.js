@@ -4,62 +4,84 @@ export function getList(select, tab) {
     let list = [];
     switch (select) {
         case "ingredients":
-            tab.forEach(recipe => {
-                recipe.ingredients.forEach(item => {
-                    let name = item.ingredient.toLowerCase().split(" (")[0];
-                    if (!(list.includes(name))) {
+            for (let i = 0; i < tab.length; i++) {
+                let matches = 0;
+                let ingredients = tab[i].ingredients;
+                for (let y = 0; y < ingredients.length; y++) {
+                    let name = ingredients[y].ingredient.toLowerCase().split(" (")[0];
+                    for (let j = 0; j < list.length; j++) {
+                        if (name == list[j]) {
+                            matches++;
+                        }
+                    }
+                    if (!(matches > 0)) {
                         list.push(name);
-                    };
-                })
-            });
+                    }
+                }
+            }
             return list;
 
         case "appliances":
-            tab.forEach(recipe => {
-                let name = recipe.appliance.toLowerCase().split(" (")[0];
-                if (!(list.includes(name))) {
+            for (let i = 0; i < tab.length; i++) {
+                let matches = 0;
+                let name = tab[i].appliance.toLowerCase().split(" (")[0];
+                for (let j = 0; j < list.length; j++) {
+                    if (name == list[j]) {
+                        matches++;
+                    }
+                }
+                if (!(matches > 0)) {
                     list.push(name);
                 }
-            });
+            }
             return list;
 
         case "ustensils":
-            tab.forEach(recipe => {
-                recipe.ustensils.forEach(ustensil => {
-                    let name = ustensil.toLowerCase().split(" (")[0];
-                    if (!(list.includes(name))) {
+            for (let i = 0; i < tab.length; i++) {
+                let matches = 0;
+                let ustensils = tab[i].ustensils
+                for (let y = 0; y < ustensils.length; y++) {
+                    let name = ustensils[y].toLowerCase().split(" (")[0];
+                    for (let j = 0; j < list.length; j++) {
+                        if (name == list[j]) {
+                            matches++;
+                        }
+                    }
+                    if (!(matches > 0)) {
                         list.push(name);
-                    };
-                });
-            });
+                    }
+                }
+            }
             return list;
     };
-};
+}
 
 //affichage d'une liste de filtre
 
 export function printList(data) {
     const list = document.createElement("div");
     list.setAttribute("class", "filters_list");
-    data.forEach(element => {
+    for (let i = 0; i < data.length; i++) {
         const filter = document.createElement("span");
         filter.setAttribute("class", "filter");
-        filter.setAttribute("value", element.charAt(0).toUpperCase() + element.slice(1));
-        filter.innerText = element.charAt(0).toUpperCase() + element.slice(1);
+        filter.setAttribute("value", data[i].charAt(0).toUpperCase() + data[i].slice(1));
+        filter.innerText = data[i].charAt(0).toUpperCase() + data[i].slice(1);
         list.appendChild(filter);
-    });
+    };
     return list;
 };
+
+
 
 //application d'un filtre à une liste
 
 export function applyFilter(string, tab) {
     let result = [];
-    tab.forEach(element => {
-        if (element.toLowerCase().includes(string)) {
-            result.push(element);
+    for (let i = 0; i < tab.length; i++) {
+        if (tab[i].toLowerCase().includes(string)) {
+            result.push(tab[i]);
         }
-    });
+    }
     return result;
 };
 

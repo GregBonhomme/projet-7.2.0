@@ -1,20 +1,19 @@
 function displayIngredients(data) {
     const list = document.createElement("div");
     list.setAttribute("class", "ingredients_list");
-    data.forEach(item => {
+    for (let i = 0; i < data.length; i++) {
         const element = document.createElement("div");
         element.setAttribute("class", "ingredient");
         const name = document.createElement("span");
         name.setAttribute("class", "ingredient_name");
-        name.innerText = item.ingredient;
+        name.innerText = data[i].ingredient;
         const info = document.createElement("span");
         info.setAttribute("class", "ingredient_info");
-        info.innerText = (item.quantity != undefined ? item.quantity : "") + " " + (item.unit != undefined ? item.unit : "");
-
+        info.innerText = (data[i].quantity != undefined ? data[i].quantity : "") + " " + (data[i].unit != undefined ? data[i].unit : "");
         element.appendChild(name);
         element.appendChild(info);
         list.appendChild(element);
-    });
+    };
     return list;
 }
 
@@ -55,50 +54,14 @@ function cardTemplate(data) {
     card.appendChild(body);
 
     return card;
-};
+}
 
 
 export function galleryTemplate(data) {
     const gallery = document.createElement("div");
     gallery.setAttribute("id", "gallery");
-    data.forEach(recipe => {
-        gallery.appendChild(cardTemplate(recipe));
-    });
+    for (let i = 0; i < data.length; i++) {
+        gallery.appendChild(cardTemplate(data[i]));
+    }
     return gallery;
-};
-
-export function testKeyword(keyword, item) {
-    let string = keyword.toLowerCase();
-    let ingredients_list = [];
-    item.ingredients.forEach(element => {
-        ingredients_list.push(element.ingredient.toLowerCase());
-    });
-    let ustensils_list = []
-    item.ustensils.forEach(ustensil => {
-        ustensils_list.push(ustensil.toLowerCase());
-    })
-    if (item.name.toLowerCase().includes(string) || item.description.toLowerCase().includes(string) || ingredients_list.includes(string) || ustensils_list.includes(string)) {
-        return true;
-    } else {
-        return false;
-    }
-};
-
-export function filterGallery(data, tab) {
-    let result = [];
-    if (Array.isArray(data)) {
-        tab.forEach(element => {
-            if (data.every(r => testKeyword(r, element))) {
-                result.push(element);
-            }
-        });
-        return result;
-    } else {
-        tab.forEach(element => {
-            if (testKeyword(data, element)) {
-                result.push(element);
-            }
-        });
-        return result;
-    }
-};
+}
