@@ -3,6 +3,7 @@ import { galleryTemplate } from "../templates/gallery.js";
 import { getList, printList, updateFilters, filterList } from "../utils/filters.js";
 import { tagsListTemplate } from "../templates/tags.js";
 import { applyKeywords } from "../utils/keywords.js";
+import { benchmark, TestArray } from "../utils/benchmark.js";
 
 //on vérifie si les informations sont dans le local storage
 
@@ -26,7 +27,6 @@ let keywords = [];
 for (let i = 0; i < recipes_data.length; i++) {
     allRecipes.push(new Recipe(recipes_data[i]));
 }
-let recipes = allRecipes;
 
 function setPageInfo(data) {
 
@@ -159,3 +159,9 @@ function filterTrigger() {
         }
     }
 };
+
+console.log(benchmark(function () {
+    for (let i = 0; i < TestArray.length; i++) {
+        applyKeywords(allRecipes, TestArray[i]);
+    };
+}))

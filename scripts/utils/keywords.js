@@ -20,7 +20,7 @@ function testKeyword(item, keyword) {
     for (let i = 0; i < item.ingredients.length; i++) {
         ingredients_list.push(item.ingredients[i].ingredient.toLowerCase());
     }
-    let ustensils_list = []
+    let ustensils_list = [];
     for (let j = 0; j < item.ustensils.length; j++) {
         ustensils_list.push(item.ustensils[j].toLowerCase());
 
@@ -32,31 +32,31 @@ function testKeyword(item, keyword) {
         if (testString(name[a], string)) {
             matches++;
         }
-    };
+    }
     for (let b = 0; b < description.length; b++) {
         if (testString(description[b])) {
             matches++;
         }
-    };
+    }
     for (let c = 0; c < ingredients_list.length; c++) {
         if (ingredients_list[c].includes(string)) {
             matches++;
         }
-    };
+    }
     for (let d = 0; d < ustensils_list.length; d++) {
         if (ustensils_list[d].includes(string)) {
             matches++;
         }
-    };
+    }
     if (item.appliance.includes(string)) {
-        matches++
+        matches++;
     }
 
     if (matches > 0) {
         return true;
     } else {
         return false;
-    };
+    }
 }
 
 function testString(text, string) {
